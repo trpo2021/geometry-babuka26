@@ -1,0 +1,8 @@
+#ignore object files
+*.o
+
+#ignore *geometry file
+*geometry
+
+#ignore .swp files
+*.swp
