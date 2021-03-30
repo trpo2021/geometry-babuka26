@@ -77,22 +77,38 @@ int check_radius(char str_arr[], int i, int *j)
     return i;
 }
 
-int format_str()
+int is_input_correct()
 {
-    int i = 0, j = 0;                    /*i -  номер символа, который проверяем
-                                    j - кол-во символов в выходном массиве*/
-    
-    int max_str = 100;
-    char str_arr[max_str];
-    FILE *file;
-
-    file = fopen("input.txt", "r");
-    fgets(str_arr, max_str, file);
-    
-    
-    check_str(str_arr, i, &j);
-    check_coordinates(str_arr, i, &j);
-    check_radius(str_arr, i, &j);
-     
-
+    int i = 0, j = 0;
+    i = space_counter(str_arr, i);
+    if(str_arr[i] == '(') {
+        j++;
+        i++;
+    } else {
+        printf("Error: expected '(");
+    }
+    i = space_counter(str_arr, i);
+    i = check_coordinates(str_arr, i, &j);
+    j++;
+    i = space_counter(str_arr, i);
+    i = check_coordinates(str_arr, i, &j);
+    i = space_counter(str_arr, i);
+    if(str_arr[i] != ',') {
+        printf("Error: expected ','");
+        exit(0);
+    } else {
+        j++;
+        i++;
+    }
+    j++;
+    i = space_counter(str_arr, i);
+    i = check_radius(str_arr, i, &j);
+    i = space_counter(str_arr, i);
+    if(str_arr[i] != ')') {
+        printf("Error: expected ')'");
+    } else {
+        j++;
+        i++;
+    }
+    return j;
 }
