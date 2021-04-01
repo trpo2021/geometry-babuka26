@@ -19,10 +19,10 @@ int check_str(char str_arr[],int i, int *j)
     while((str_arr[i] != '(') && (isalpha(str_arr[i]) > 0)) {
         if(check_arr[k] != (tolower(str_arr[i]))) {
             printf("Error: expected 'circle'");
-            exit(0);
+            return 0;
         }
         i++;
-        j++;
+        (*j)++;
         k++;
     }
     return i;
@@ -30,24 +30,29 @@ int check_str(char str_arr[],int i, int *j)
 
 int check_coordinates(char str_arr[], int i, int *j)
 {
-    int k = 0;
-
-    if(str_arr[i] == '-') {
+int k = 0;
+    if (str_arr[i] == '-') {
         i++;
-        k++;
+        (*j)++;
     }
-    if(isdigit(str_arr[i] == 0)) {
-        printf("Error: expected digit");
-        exit(0);
+    if (isdigit(str_arr[i]) == 0) {
+        printf("Error :expected digit");
+        return 0;
     }
-    while((isdigit(str_arr[i] > 0)) || (str_arr[i] == '.')) {
-        if((k > 0) && (str_arr[i]) == '.') {
+    while ((isdigit(str_arr[i]) > 0) || (str_arr[i] == '.')) {
+        if ((str_arr[i] == '.') && (k == 0)) {
             k = i;
         }
-        if((str_arr[i] == '.') && (j > 0)) {
+        i++;
+        (*j)++;
+        if ((str_arr[i] == '.') && (k > 0)) {
             printf("Error: expected digit");
-            exit(0);
+            return 0;
         }
+    }
+    if ((str_arr[k] == '.') && (isdigit(str_arr[k + 1]) == 0)) {
+        printf("Error: expected digit");
+        return 0;
     }
     return i;
 }
@@ -55,24 +60,24 @@ int check_coordinates(char str_arr[], int i, int *j)
 int check_radius(char str_arr[], int i, int *j)
 {
     int k = 0;
-
-    if(str_arr[i] == '-') {
-        printf("Error: the radius cannot be negative");
-    }
-    if(isdigit(str_arr[i] == 0)) {
+    if (isdigit(str_arr[i]) == 0) {
         printf("Error: expected digit");
-        exit(0);
+        return 0;
     }
-    while((isdigit(str_arr[i] > 0)) || (str_arr[i] == '.')) {
-        if((k == 0) && (str_arr[i]) == '.') {
+    while ((isdigit(str_arr[i]) > 0) || (str_arr[i] == '.')) {
+        if ((str_arr[i] == '.') && (k == 0)) {
             k = i;
         }
-        k++;
         i++;
-        if((str_arr[i] == '.') && (j > 0)) {
+        (*j)++;
+        if ((str_arr[i] == '.') && (k > 0)) {
             printf("Error: expected digit");
-            exit(0);
+            return 0;
         }
+    }
+    if ((str_arr[k] == '.') && (isdigit(str_arr[k + 1]) == 0)) {
+        printf("Error: expected digit");
+        return 0;
     }
     return i;
 }
@@ -80,12 +85,14 @@ int check_radius(char str_arr[], int i, int *j)
 int is_input_correct(char str_arr[])
 {
     int i = 0, j = 0;
+    i = check_str(str_arr, i, &j);
     i = space_counter(str_arr, i);
     if(str_arr[i] == '(') {
         j++;
         i++;
     } else {
-        printf("Error: expected '(");
+        printf("Error: expected '('\n");
+        return 0;
     }
     i = space_counter(str_arr, i);
     i = check_coordinates(str_arr, i, &j);
@@ -94,8 +101,8 @@ int is_input_correct(char str_arr[])
     i = check_coordinates(str_arr, i, &j);
     i = space_counter(str_arr, i);
     if(str_arr[i] != ',') {
-        printf("Error: expected ','");
-        exit(0);
+        printf("Error: expected ','\n");
+        return 0;
     } else {
         j++;
         i++;
@@ -113,9 +120,7 @@ int is_input_correct(char str_arr[])
     return j;
 }
 
-void format_str(char str_arr[], *output_arr)
+void format_str(char str_arr[])
 {
-    int i, j, k;
-    k = is_input_correct(str_arr);
-    
+
 }
