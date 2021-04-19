@@ -1,23 +1,23 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#define PI 3.14
 
 int space_counter(char str_arr[], int i)
 {
-    while(str_arr[i] == ' ') {
+    while (str_arr[i] == ' ') {
         i++;
     }
     return i;
 }
 
-
-int check_str(char str_arr[],int i, int *j)
+int check_str(char str_arr[], int i, int* j)
 {
     char check_arr[] = {'c', 'i', 'r', 'c', 'l', 'e'};
     int k = 0;
     i = space_counter(str_arr, i);
-    while((str_arr[i] != '(') && (isalpha(str_arr[i]) > 0)) {
-        if(check_arr[k] != (tolower(str_arr[i]))) {
+    while ((str_arr[i] != '(') && (isalpha(str_arr[i]) > 0)) {
+        if (check_arr[k] != (tolower(str_arr[i]))) {
             printf("Error: expected 'circle'");
             return 0;
         }
@@ -28,9 +28,9 @@ int check_str(char str_arr[],int i, int *j)
     return i;
 }
 
-int check_coordinates(char str_arr[], int i, int *j)
+int check_coordinates(char str_arr[], int i, int* j)
 {
-int k = 0;
+    int k = 0;
     if (str_arr[i] == '-') {
         i++;
         (*j)++;
@@ -57,7 +57,7 @@ int k = 0;
     return i;
 }
 
-int check_radius(char str_arr[], int i, int *j)
+int check_radius(char str_arr[], int i, int* j)
 {
     int k = 0;
     if (isdigit(str_arr[i]) == 0) {
@@ -87,7 +87,7 @@ int is_input_correct(char str_arr[])
     int i = 0, j = 0;
     i = check_str(str_arr, i, &j);
     i = space_counter(str_arr, i);
-    if(str_arr[i] == '(') {
+    if (str_arr[i] == '(') {
         j++;
         i++;
     } else {
@@ -100,7 +100,7 @@ int is_input_correct(char str_arr[])
     i = space_counter(str_arr, i);
     i = check_coordinates(str_arr, i, &j);
     i = space_counter(str_arr, i);
-    if(str_arr[i] != ',') {
+    if (str_arr[i] != ',') {
         printf("Error: expected ','\n");
         return 0;
     } else {
@@ -111,7 +111,7 @@ int is_input_correct(char str_arr[])
     i = space_counter(str_arr, i);
     i = check_radius(str_arr, i, &j);
     i = space_counter(str_arr, i);
-    if(str_arr[i] != ')') {
+    if (str_arr[i] != ')') {
         printf("Error: expected ')'");
     } else {
         j++;
@@ -120,7 +120,60 @@ int is_input_correct(char str_arr[])
     return j;
 }
 
-void format_str(char str_arr[])
+void format_str(char* str_arr, char* output_arr)
 {
+    int i = 0, j;
+    i = space_counter(str_arr, i);
+    for (j = 0; (str_arr[i] != '(') && (str_arr[i] != ' '); i++, j++) {
+        output_arr[j] = str_arr[i];
+    }
+    output_arr[j] = '(';
+    j++;
+    while ((str_arr[i] != '-') && (isdigit(str_arr[i]) == 0)) {
+        i++;
+    }
+    for (; str_arr[i] != ' '; i++, j++) {
+        output_arr[j] = str_arr[i];
+    }
+    output_arr[j] = ' ';
+    j++;
+    i = space_counter(str_arr, i);
+    for (; (str_arr[i] != ',') && (str_arr[i] != ' '); i++, j++) {
+        output_arr[j] = str_arr[i];
+    }
+    output_arr[j] = ',';
+    j++;
+    output_arr[j] = ' ';
+    j++;
+    i = space_counter(str_arr, i);
+    if (str_arr[i] == ',') {
+        i++;
+    }
+    i = space_counter(str_arr, i);
+    for (; (str_arr[i] != ')') && (str_arr[i] != ' '); i++, j++) {
+        output_arr[j] = str_arr[i];
+    }
+    output_arr[j] = ')';
+    j++;
+    output_arr[j] = '\0';
+}
 
+void area_and_perimetr(char output_arr[])
+{
+    int i = 0, j = 0;
+    char digit[100];
+    float radius;
+    float per, area;
+
+    for (i = 0; i < 100; i++) {
+        if ((output_arr[i] == ',') && (output_arr[i + 1] == ' ')) {
+            for (j = i; output_arr[j + 1] != ')'; j++) {
+                digit[j - i] = output_arr[j + 1];
+            }
+        }
+    }
+    radius = atof(digit);
+    per = PI * radius * 2;
+    area = PI * radius * radius;
+    printf("perimetr: %f\narea: %f\n", per, area);
 }
