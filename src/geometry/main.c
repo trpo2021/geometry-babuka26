@@ -1,4 +1,4 @@
-#include "../libgeometry/geometry.h"
+#include "libgeometry/geometry.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>

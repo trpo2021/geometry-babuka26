@@ -1,7 +1,7 @@
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define PI 3.14
 
 int space_counter(char str_arr[], int i)
 {
@@ -173,7 +173,7 @@ void area_and_perimetr(char output_arr[])
         }
     }
     radius = atof(digit);
-    per = PI * radius * 2;
-    area = PI * radius * radius;
+    per = M_PI * radius * 2;
+    area = M_PI * radius * radius;
     printf("perimetr: %f\narea: %f\n", per, area);
 }
