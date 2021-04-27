@@ -158,22 +158,73 @@ void format_str(char* str_arr, char* output_arr)
     output_arr[j] = '\0';
 }
 
-float get_cooordinates(char *str)
+double get_cooordinate_x(char *str)
 {
     int i = 0, j = 0;
-    char coord_arr[100];
-
-    while(str[i] != '('){
+    int minus = 1;
+    char x_arr[100];
+    double x;
+    
+    while(isdigit(str[i]) == 0){
+        if(str[i] == '-') {
+            minus = -1;
+        }
         i++;
+    }
+    while(str[i] != ' ') {
+        x_arr[j] = str[i];
+        i++;
+        j++;
+    }
+    x = atof(x_arr);
+    x *= minus;
+    return x;
+}
+
+double get_cooordinate_y(char *str)
+{
+    int i = 0, j = 0;
+    int minus = 1;
+    char y_arr[100];
+    double y;
+    
+    while(str[i] != ' ') {
+        i++;
+    }
+    if(isdigit(str[i] == 1) && str[i - 1] == '-') {
+            minus = -1;
     }
     while(str[i] != ',') {
-        coord_arr[j] = str[i];
+        y_arr[j] = str[i];
+        i++;
         j++;
+    }
+    y = atof(y_arr);
+    y *= minus;
+    return y;
+}
+
+double get_rad(char *str)
+{
+    int i = 0, j = 0;
+    int minus = 1;
+    char rad_arr[100];
+    double rad;
+    
+    while(((isdigit(str[i]) == 0) || str[i] != '-') && (str[i - 2] != ',')){
+        if((isdigit(str[i] == 1)) && (str[i - 1] == '-')) {
+            minus = -1;
+        }
         i++;
     }
-    
-
-    return atof(coord_arr);;
+    while(str[i] != ')') {
+        rad_arr[j] = str[i];
+        i++;
+        j++;
+    }
+    rad = atof(rad_arr);
+    rad *= minus;
+    return rad;
 }
 
 void area_and_perimetr(char output_arr[])

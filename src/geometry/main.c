@@ -19,4 +19,7 @@ int main()
     printf("Correct coordinates: ");
     puts(output_arr);
     area_and_perimetr(output_arr);
+    printf("\n%f\n", get_cooordinate_x(output_arr));
+    printf("\n%f\n", get_cooordinate_y(output_arr));
+    printf("\n%f\n", get_rad(output_arr));
 }
