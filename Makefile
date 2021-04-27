@@ -39,6 +39,14 @@ $(OBJ_DIR)/$(SRC_DIR)/$(APP_NAME)/%.o: $(SRC_DIR)/$(APP_NAME)/%.c
 $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/%.o: $(SRC_DIR)/$(LIB_NAME)/%.c
 	gcc -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
+test: $(TEST_PATH)
+
+$(OBJ_DIR)/$(TEST_DIR)/%.o: %.c
+	gcc -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+$(TEST_PATH): $(APP_TEST_OBJECTS) $(LIB_PATH)
+	gcc $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
+
 clean:
 	$(RM) $(APP_PATH) $(LIB_PATH)
 	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
