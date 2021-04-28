@@ -10,6 +10,7 @@ int main()
     char* str_arr = NULL;
     str_arr = calloc(max_str, sizeof(char));
     char* output_arr = NULL;
+    double x, y, rad, per, area;
 
     printf("Input figure and cooordinates: ");
     fgets(str_arr, max_str, stdin);
@@ -18,8 +19,13 @@ int main()
     format_str(str_arr, output_arr);
     printf("Correct coordinates: ");
     puts(output_arr);
-    area_and_perimetr(output_arr);
-    printf("\n%f\n", get_cooordinate_x(output_arr));
-    printf("\n%f\n", get_cooordinate_y(output_arr));
-    printf("\n%f\n", get_rad(output_arr));
+    
+    x = get_cooordinate_x(output_arr);
+    y = get_cooordinate_y(output_arr);
+    rad = get_rad(output_arr);
+    printf("x - %f, y - %f, rad - %f\n", x ,y ,rad);
+    
+    per = get_perimetr(rad);
+    area = get_area(rad);
+    printf("Perimetr - %f   Area - %f\n", per, area);  
 }

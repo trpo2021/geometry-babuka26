@@ -206,43 +206,30 @@ double get_cooordinate_y(char *str)
 
 double get_rad(char *str)
 {
-    int i = 0, j = 0;
+    int i = 0;
     int minus = 1;
-    char rad_arr[100];
     double rad;
-    
-    while(((isdigit(str[i]) == 0) || str[i] != '-') && (str[i - 2] != ',')){
-        if((isdigit(str[i] == 1)) && (str[i - 1] == '-')) {
-            minus = -1;
-        }
+
+    while (str[i] != ',') {
         i++;
     }
-    while(str[i] != ')') {
-        rad_arr[j] = str[i];
+    i = i + 2;
+    if (str[i] == '-') {
+        minus = -1;
         i++;
-        j++;
     }
-    rad = atof(rad_arr);
+
+    rad = atof(&str[i]);
     rad *= minus;
     return rad;
 }
 
-void area_and_perimetr(char output_arr[])
+double get_perimetr(double rad)
 {
-    int i = 0, j = 0;
-    char digit[100];
-    float radius;
-    float per, area;
+    return 2 * M_PI * rad;
+}
 
-    for (i = 0; i < 100; i++) {
-        if ((output_arr[i] == ',') && (output_arr[i + 1] == ' ')) {
-            for (j = i; output_arr[j + 1] != ')'; j++) {
-                digit[j - i] = output_arr[j + 1];
-            }
-        }
-    }
-    radius = atof(digit);
-    per = M_PI * radius * 2;
-    area = M_PI * radius * radius;
-    printf("perimetr: %f\narea: %f\n", per, area);
+double get_area(double rad)
+{
+    return M_PI * rad * rad;
 }
