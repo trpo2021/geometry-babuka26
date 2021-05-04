@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include <math.h>
 
+double sqr(double x)
+{
+    return x * x;
+}
+
 int space_counter(char str_arr[], int i)
 {
     while (str_arr[i] == ' ') {
@@ -160,9 +165,8 @@ void format_str(char* str_arr, char* output_arr)
 
 double get_cooordinate_x(char *str)
 {
-    int i = 0, j = 0;
+    int i = 0;
     int minus = 1;
-    char x_arr[100];
     double x;
     
     while(isdigit(str[i]) == 0){
@@ -171,21 +175,16 @@ double get_cooordinate_x(char *str)
         }
         i++;
     }
-    while(str[i] != ' ') {
-        x_arr[j] = str[i];
-        i++;
-        j++;
-    }
-    x = atof(x_arr);
+    x = atof(&str[i]);
     x *= minus;
     return x;
 }
 
 double get_cooordinate_y(char *str)
 {
-    int i = 0, j = 0;
+    int i = 0;
     int minus = 1;
-    char y_arr[100];
+
     double y;
     
     while(str[i] != ' ') {
@@ -194,12 +193,7 @@ double get_cooordinate_y(char *str)
     if(isdigit(str[i] == 1) && str[i - 1] == '-') {
             minus = -1;
     }
-    while(str[i] != ',') {
-        y_arr[j] = str[i];
-        i++;
-        j++;
-    }
-    y = atof(y_arr);
+    y = atof(&str[i]);
     y *= minus;
     return y;
 }
@@ -232,4 +226,39 @@ double get_perimetr(double rad)
 double get_area(double rad)
 {
     return M_PI * rad * rad;
+}
+
+double calculate_distance(double x1, double y1, double x2, double y2)
+{
+    return sqrt(sqr(x2 - x1) + sqr(y2 - y1));
+}
+
+int is_intersect(char *output_arr_1, char *output_arr_2)
+{
+    double x1, x2, y1, y2, rad1, rad2;
+    double dist;
+
+    x1 = get_cooordinate_x(output_arr_1);
+    y1 = get_cooordinate_y(output_arr_1);
+    rad1 = get_rad(output_arr_1);
+
+    x2 = get_cooordinate_x(output_arr_2);
+    y2 = get_cooordinate_y(output_arr_2);
+    rad2 = get_rad(output_arr_2);
+
+    dist = calculate_distance(x1, y1, x2, y2);
+    if (dist > (rad1 + rad2)) {
+        //не пересекаются
+        return 0;
+    } else if ((x1 == x2) && (y1 == y2) && (rad1 == rad2)) {
+        return 3;
+    } else if (dist < (rad1 + rad2)) {
+        //пересекаются в 2 точке
+        return 2;
+    } else if ((dist = rad1 + rad2)) {
+        //пересекаются в 1 точках
+        return 1;
+    } else {
+        return -1;
+    }
 }
