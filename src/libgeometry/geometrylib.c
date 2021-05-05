@@ -1,7 +1,7 @@
 #include <ctype.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 double sqr(double x)
 {
@@ -125,9 +125,12 @@ int is_input_correct(char str_arr[])
     return j;
 }
 
-void format_str(char* str_arr, char* output_arr)
+char *format_str(char* str_arr)
 {
+    int size_output = is_input_correct(str_arr);
+    char *output_arr = calloc(size_output, sizeof(char));
     int i = 0, j;
+
     i = space_counter(str_arr, i);
     for (j = 0; (str_arr[i] != '(') && (str_arr[i] != ' '); i++, j++) {
         output_arr[j] = str_arr[i];
@@ -161,16 +164,18 @@ void format_str(char* str_arr, char* output_arr)
     output_arr[j] = ')';
     j++;
     output_arr[j] = '\0';
+
+    return output_arr;
 }
 
-double get_cooordinate_x(char *str)
+double get_cooordinate_x(char* str)
 {
     int i = 0;
     int minus = 1;
     double x;
-    
-    while(isdigit(str[i]) == 0){
-        if(str[i] == '-') {
+
+    while (isdigit(str[i]) == 0) {
+        if (str[i] == '-') {
             minus = -1;
         }
         i++;
@@ -180,25 +185,25 @@ double get_cooordinate_x(char *str)
     return x;
 }
 
-double get_cooordinate_y(char *str)
+double get_cooordinate_y(char* str)
 {
     int i = 0;
     int minus = 1;
 
     double y;
-    
-    while(str[i] != ' ') {
+
+    while (str[i] != ' ') {
         i++;
     }
-    if(isdigit(str[i] == 1) && str[i - 1] == '-') {
-            minus = -1;
+    if (isdigit(str[i] == 1) && str[i - 1] == '-') {
+        minus = -1;
     }
     y = atof(&str[i]);
     y *= minus;
     return y;
 }
 
-double get_rad(char *str)
+double get_rad(char* str)
 {
     int i = 0;
     int minus = 1;
@@ -233,7 +238,7 @@ double calculate_distance(double x1, double y1, double x2, double y2)
     return sqrt(sqr(x2 - x1) + sqr(y2 - y1));
 }
 
-int is_intersect(char *output_arr_1, char *output_arr_2)
+int is_intersect(char* output_arr_1, char* output_arr_2)
 {
     double x1, x2, y1, y2, rad1, rad2;
     double dist;
@@ -251,6 +256,7 @@ int is_intersect(char *output_arr_1, char *output_arr_2)
         //не пересекаются
         return 0;
     } else if ((x1 == x2) && (y1 == y2) && (rad1 == rad2)) {
+        //совпадают
         return 3;
     } else if (dist < (rad1 + rad2)) {
         //пересекаются в 2 точке
