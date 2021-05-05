@@ -91,6 +91,9 @@ int is_input_correct(char str_arr[])
 {
     int i = 0, j = 0;
     i = check_str(str_arr, i, &j);
+    if (i == 0) {
+        return 0;
+    }
     i = space_counter(str_arr, i);
     if (str_arr[i] == '(') {
         j++;
@@ -118,6 +121,7 @@ int is_input_correct(char str_arr[])
     i = space_counter(str_arr, i);
     if (str_arr[i] != ')') {
         printf("Error: expected ')'");
+        return 0;
     } else {
         j++;
         i++;
@@ -125,15 +129,15 @@ int is_input_correct(char str_arr[])
     return j;
 }
 
-char *format_str(char* str_arr)
+char* format_str(char* str_arr)
 {
     int size_output = is_input_correct(str_arr);
-    char *output_arr = calloc(size_output, sizeof(char));
+    char* output_arr = calloc(size_output, sizeof(char));
     int i = 0, j;
 
     i = space_counter(str_arr, i);
     for (j = 0; (str_arr[i] != '(') && (str_arr[i] != ' '); i++, j++) {
-        output_arr[j] = str_arr[i];
+        output_arr[j] = tolower(str_arr[i]);
     }
     output_arr[j] = '(';
     j++;
@@ -230,7 +234,7 @@ double get_perimetr(double rad)
 
 double get_area(double rad)
 {
-    return M_PI * rad * rad;
+    return M_PI * sqr(rad);
 }
 
 double calculate_distance(double x1, double y1, double x2, double y2)

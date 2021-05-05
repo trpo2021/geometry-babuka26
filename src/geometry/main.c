@@ -9,7 +9,7 @@ int main()
     int max_str = 100;
     char* str_arr = NULL;
     str_arr = calloc(max_str, sizeof(char));
-    char* output_arr_1 = NULL, *output_arr_2 = NULL;
+    char *output_arr_1 = NULL, *output_arr_2 = NULL;
     double x1, y1, rad1, per1, area1, x2, y2, rad2, per2, area2;
 
     printf("Input first figure and cooordinates: ");
@@ -21,7 +21,7 @@ int main()
     x1 = get_cooordinate_x(output_arr_1);
     y1 = get_cooordinate_y(output_arr_1);
     rad1 = get_rad(output_arr_1);
-    printf("x - %f, y - %f, rad - %f\n", x1 ,y1 ,rad1);
+    printf("x - %f, y - %f, rad - %f\n", x1, y1, rad1);
     per1 = get_perimetr(rad1);
     area1 = get_area(rad1);
     printf("Perimetr - %f   Area - %f\n", per1, area1);
