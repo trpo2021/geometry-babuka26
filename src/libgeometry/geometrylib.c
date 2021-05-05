@@ -2,14 +2,11 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-<<<<<<< HEAD:src/libgeometry/geometrylib.c
-=======
 
 double sqr(double x)
 {
     return x * x;
 }
->>>>>>> lab4:src/libgeometry/format.c
 
 int space_counter(char str_arr[], int i)
 {
@@ -274,11 +271,4 @@ int is_intersect(char* output_arr_1, char* output_arr_2)
     } else {
         return -1;
     }
-<<<<<<< HEAD:src/libgeometry/geometrylib.c
-    radius = atof(digit);
-    per = M_PI * radius * 2;
-    area = M_PI * radius * radius;
-    printf("perimetr: %f\narea: %f\n", per, area);
-=======
->>>>>>> lab4:src/libgeometry/format.c
 }

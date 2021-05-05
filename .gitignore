@@ -1,5 +1,7 @@
 bin/geometry
 
+bin/test/geometry_test
+
 *.a
 
 *.d
